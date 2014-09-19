@@ -1,0 +1,17 @@
+{
+	"q": {
+		"main": "q.js"
+	},
+	"curl": {
+		"base": "src/curl/",
+		"main": "src/curl.js",
+		"more": "src/curl/**/*.js"
+	},
+	"lodash-amd": {
+		"base": "modern/",
+		"more": "modern/**/*.js"
+	},
+	"zepto": {
+		"main": "zepto.js"
+	}
+}
