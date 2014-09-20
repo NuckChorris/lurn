@@ -1,15 +1,21 @@
-import _ from 'lo-dash';
-import $ from 'zepto';
+'use strict';
+import _ from 'vendor/lodash/main';
+import $ from 'vendor/zepto';
+import hiragana from 'hiragana';
+import katakana from 'katakana';
 
-export default {
+var KanaTrainer = {
 	currentSet: [],
-	changeSets: function changeSets (hira, kata) {
+	changeSets: function changeSets (hira=['-'], kata=[]) {
+		$();
 		for(let a of hira) {
 			KanaTrainer.currentSet = a;
 		}
 		this.currentSet = _([
-			_(HIRAGANA).select((trash, key) => hira.indexOf(key)),
-			_(KATAKANA).select((trash, key) => kata.indexOf(key))
+			_(hiragana).select((trash, key) => hira.indexOf(key)),
+			_(katakana).select((trash, key) => kata.indexOf(key))
 		]).flatten().union();
 	}
 };
+
+export default KanaTrainer;
