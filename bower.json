@@ -15,6 +15,7 @@
     "q": "~2.0.2",
     "zepto": "~1.1.4",
     "curl": "~0.8.10",
-    "lodash-amd": "~2.4.1"
+    "lodash-amd": "~2.4.1",
+    "regenerator": "facebook/regenerator#~0.6.5"
   }
 }

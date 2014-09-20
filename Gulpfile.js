@@ -1,16 +1,25 @@
-var path = require('path');
-var gulp = require('gulp');
-var esnext = require('gulp-esnext');
-var es6moduleTranspiler = require('gulp-es6-module-transpiler');
-var uglify = require('gulp-uglify');
-var less = require('gulp-less');
-var sourcemaps = require('gulp-sourcemaps');
-var concat = require('gulp-concat');
-var rename = require('gulp-rename');
-var bowerFiles = require('main-bower-files');
+// Not Gulp Plugins
+var path     = require('path');
+var gulp     = require('gulp');
+var del      = require('del');
+var lazypipe = require('lazypipe');
+// General
+var gulpif      = require('gulp-if');
+var sourcemaps  = require('gulp-sourcemaps');
+var concat      = require('gulp-concat');
+var rename      = require('gulp-rename');
+var bowerFiles  = require('main-bower-files');
 var mergeStream = require('merge-stream');
-var debug = require('gulp-debug');
-var del = require('del');
+// JS
+var esnext    = require('gulp-esnext');
+var esmodules = require('gulp-es6-module-transpiler');
+var uglify    = require('gulp-uglify');
+var jshint    = require('gulp-jshint');
+var defs      = require('gulp-defs');
+// CSS
+var less = require('gulp-less');
+
+
 var paths = {
 	scripts: ['src/js/**/*'],
 	styles: ['src/css/app.less'],
@@ -18,21 +27,11 @@ var paths = {
 	pages: ['**/*.htm']
 };
 
-gulp.task('clean', function(cb) {
-	del(['build'], cb);
-});
 
-gulp.task('scripts', ['clean'], function () {
-	return gulp.src(paths.scripts)
-		.pipe(sourcemaps.init())
-		.pipe(esnext())
-		.pipe(es6moduleTranspiler({
-			type: 'amd'
-		}))
-		.pipe(sourcemaps.write())
-		.pipe(gulp.dest('build/js'));
-});
-
+/**
+ * Utility Functions
+ */
+var indev = (process.env.ENV === 'development');
 function vendorTree (tree) {
 	var tree = require(tree);
 	var trees = [];
@@ -57,18 +56,55 @@ function vendorTree (tree) {
 	return mergeStream.apply(null, trees);
 }
 
-gulp.task('vendor', ['clean'], function () {
+function ifdev (fn) {
+	var args = Array.prototype.slice.call(arguments, 1);
+	return function () {
+		return gulpif(indev, fn.apply(null, args));
+	}
+}
+
+
+/*
+ * Pipelines
+ */
+var es6 = lazypipe()
+	.pipe(ifdev(sourcemaps.init))
+	.pipe(esnext)
+	.pipe(esmodules, {type: 'amd'})
+	.pipe(defs, {disallowUnknownReferences: false})
+	.pipe(ifdev(uglify))
+	.pipe(ifdev(sourcemaps.write));
+var hint = lazypipe()
+	.pipe(jshint, {debug: indev, devel: indev})
+	.pipe(jshint.reporter, 'jshint-stylish');
+
+
+/**
+ * Tasks
+ */
+gulp.task('clean', function(cb) {
+	del(['build'], cb);
+});
+
+gulp.task('scripts', function () {
+	return gulp.src(paths.scripts)
+		.pipe(ifdev(hint)())
+		.pipe(es6())
+		.pipe(gulp.dest('build/js'));
+});
+
+gulp.task('vendor', function () {
 	return vendorTree('./vendor.json')
-		.pipe(sourcemaps.init())
-		.pipe(uglify())
+		.pipe(ifdev(sourcemaps.init)())
+		.pipe(ifdev(uglify)())
 		.pipe(rename(function (f) {
 			f.dirname = f.dirname.replace('-amd', '')
 		}))
-		.pipe(sourcemaps.write())
+		.pipe(ifdev(sourcemaps.write)())
 		.pipe(gulp.dest('build/js/vendor'));
 });
 
-gulp.task('pages', ['clean'], function () {
+gulp.task('pages', function () {
 	return gulp.src(paths.pages)
 		.pipe(gulp.dest('build'));
 });

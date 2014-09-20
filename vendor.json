@@ -13,5 +13,8 @@
 	},
 	"zepto": {
 		"main": "zepto.js"
+	},
+	"regenerator": {
+		"main": "runtime.js"
 	}
 }

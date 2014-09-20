@@ -21,6 +21,11 @@
     "gulp-concat": "~2.4.0",
     "gulp-esnext": "~1.1.0",
     "gulp-rename": "~1.2.0",
-    "gulp-insert": "~0.4.0"
+    "gulp-insert": "~0.4.0",
+    "gulp-defs": "0.0.1",
+    "lazypipe": "~0.2.2",
+    "jshint-stylish": "~1.0.0",
+    "gulp-if": "~1.2.4",
+    "gulp-jshint": "~1.8.4"
   }
 }
