@@ -1,0 +1,27 @@
+@drop--round-digits: 3;
+@body--font-family: 'M+ 1p', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+@import '../../bower_components/drop-less/drop.less';
+
+*,
+*::before,
+*::after {
+	transition: all 0.5s;
+}
+body,
+html {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+}
+body {
+	display: flex;
+	flex-direction: column;
+	font-weight: 400; 
+}
+button {
+	font: inherit;
+	color: inherit;
+	max-width: 90%;
+	padding: 1em 2em;
+}
