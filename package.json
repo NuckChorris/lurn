@@ -1,13 +1,10 @@
 {
-  "name": "kana",
-  "version": "0.0.0",
-  "description": "",
+  "name": "lurn",
+  "version": "0.1.0",
+  "description": "A mobile-first kana learning web app",
   "main": "Gulpfile.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
+  "author": "Peter Lejeck <code@plejeck.com>",
+  "license": "MIT",
   "devDependencies": {
     "merge-stream": "~0.1.5",
     "main-bower-files": "~2.0.0",
