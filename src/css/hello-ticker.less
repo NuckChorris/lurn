@@ -1,0 +1,35 @@
+@keyframes ticker {
+  0% {
+    transform: translateY(-1em);
+    opacity: 0;
+  }
+  5% {
+    opacity: 0;
+  }
+	10%, 25% {
+    transform: translateY(0em);
+		opacity: 1;
+	}
+  30% {
+    opacity: 0;
+  }
+	35%, 100% {
+    transform: translateY(+1em);
+		opacity: 0;
+	}
+}
+
+#hello-ticker > div {
+	margin-top: -2em;
+	animation-name: ticker;
+	animation-duration: 8s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+	text-align: center;
+	font-size: 2em;
+	line-height: 2em;
+	&:nth-child(1) { animation-delay: 0s; margin-top: 0; }
+	&:nth-child(2) { animation-delay: 2s; }
+	&:nth-child(3) { animation-delay: 4s; }
+	&:nth-child(4) { animation-delay: 6s; }
+}

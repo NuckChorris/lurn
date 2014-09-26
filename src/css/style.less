@@ -1,0 +1,34 @@
+@import 'base.less';
+@import 'theme/light.less';
+@import 'theme/dark.less';
+@import 'hello-ticker.less';
+
+nav.footer {
+	height: 3em;
+	flex: none;
+	display: flex;
+	align-items: center;
+}
+section.mode {
+	flex: 1;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	&:target {
+		display: flex;
+	}
+}
+#start > div,
+#start > button {
+	margin: 1em;
+}
+.romaji {
+	font-weight: 300;
+	color: hsla(0, 0%, 5%, 90%);
+}
+.romaji > i {
+	font-weight: 500;
+	font-style: normal;
+	color: hsla(0, 0%, 5%, 100%);
+}
