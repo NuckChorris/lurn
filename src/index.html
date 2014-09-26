@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Kana Trainer</title>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet" type="text/css">
+	<script defer src="js/vendor/curl.js"></script>
+	<script defer src="js/boot.js"></script>
+	<script defer src="//localhost:35729/livereload.js"></script>
+</head>
+<body class="theme-light">
+	<section id="start" class="mode">
+		<div id="hello-ticker">
+			<div>今日は</div>
+			<div>Hello</div>
+			<div>こんにちは</div>
+			<div>お早う</div>
+		</div>
+		<button class="primary-button">Start</button>
+	</section>
+	<section id="settings" class="mode">
+		<label><input type="radio" name="theme" value="dark"> Dark</label>
+		<label><input type="radio" name="theme" value="light"> Light</label>
+		<label><input type="checkbox"> </label>
+	</section>
+	<section id="learn" class="mode">
+		<div id="learn" class="view">
+			<div id="question">か</div>
+			<div id="answers" class="answers">
+				<button id="answer-1" class="answer romaji">k<i>a</i></button>
+				<button id="answer-2" class="answer romaji">sh<i>i</i></button>
+				<button id="answer-3" class="answer romaji">t<i>e</i></button>
+				<button id="answer-4" class="answer romaji"><i>u</i></button>
+			</div>
+		</div>
+		<div id="">
+		</div>
+	</section>
+	<nav class="footer">
+		<canvas id="countdown-timer" height="20" width="20"></canvas>
+		<a href="#settings"><i class="fa fa-cog"></i></a>
+	</nav>
+</body>
+</html>
