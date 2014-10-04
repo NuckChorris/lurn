@@ -17,6 +17,7 @@
     "curl": "~0.8.10",
     "lodash-amd": "~2.4.1",
     "regenerator": "facebook/regenerator#~0.6.5",
-    "drop-less": "~0.1.1"
+    "drop-less": "~0.1.1",
+    "react": "~0.11.2"
   }
 }

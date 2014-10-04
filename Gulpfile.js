@@ -26,6 +26,8 @@ var defs      = require('gulp-defs');
 var less         = require('gulp-less');
 var minifycss    = require('gulp-minify-css');
 var autoprefixer = require('gulp-autoprefixer');
+// Templates
+var react   = require('gulp-react');
 // Images
 var imagemin = require('imagemin');
 
@@ -33,6 +35,7 @@ var imagemin = require('imagemin');
 var paths = {
 	scripts: ['src/js/**/*.js'],
 	styles: ['src/css/**/*.less'],
+	templates: ['src/js/**/*.jsx'],
 	images: ['src/img/**/*'],
 	pages: ['src/**/*.{htm,html}']
 };
@@ -111,6 +114,17 @@ gulp.task('scripts', function () {
 		.pipe(ifdev(livereload)());
 });
 
+gulp.task('templates', function () {
+	return gulp.src(paths.templates)
+		.pipe(plumber())
+		.pipe(ifdev(watch)(paths.templates, {name: 'templates'}))
+		.pipe(react())
+		.pipe(es6())
+		.pipe(gulp.dest('build/js'))
+		.pipe(notify())
+		.pipe(ifdev(livereload)());
+});
+
 gulp.task('vendor', function () {
 	return vendorTree('./vendor.json')
 		.pipe(plumber())
@@ -156,4 +170,4 @@ gulp.task('pages', function () {
 		.pipe(ifdev(livereload)());
 });
 
-gulp.task('default', ['scripts', 'vendor', 'pages', 'styles', 'images']);
+gulp.task('default', ['scripts', 'vendor', 'pages', 'styles', 'images', 'templates']);
